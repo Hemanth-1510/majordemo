@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackerRank Contest Plagiarism Checker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #1e293b;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            color: #ffc107 !important;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        .nav-link {
+            color: #ddd !important;
+        }
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+        .hero {
+            background: url('/static/bgimage.webp') no-repeat center center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 120px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+        .hero h1 {
+            font-size: 3.25rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            white-space: nowrap;
+            display: inline-block;
+            border-right: 3px solid #fff;
+            animation: 
+                typing 7s steps(40, end) infinite,
+                blink-caret 0.7s step-end infinite;
+        }
+
+        @keyframes typing {
+            0% { 
+                width: 0;
+                border-right-color: #fff;
+            }
+            49.9% { 
+                width: 100%;
+                border-right-color: #fff;
+            }
+            50%, 100% { 
+                width: 100%;
+                border-right-color: transparent;
+            }
+        }
+
+        @keyframes blink-caret {
+            0%, 100% { border-right-color: transparent; }
+            50% { border-right-color: #fff; }
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero .btn {
+            font-size: 1.1rem;
+            padding: 12px 30px;
+            border-radius: 50px;
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            transition: background-color 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        .hero .btn:hover {
+            background-color: #ffca2c;
+        }
+        .features {
+            background-color: #f0f8ff;
+            padding: 60px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+        .feature:hover {
+            transform: scale(1.05);
+            transition: all 0.3s ease-in-out;
+        }
+        footer {
+            background-color: #1e293b;
+            color: #cbd5e1;
+            text-align: center;
+            padding: 20px 0;
+        }
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .social-icons i {
+            color: #ffc107;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+        .social-icons i:hover {
+            color: #ffca2c;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .form-control {
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #ffc107;
+        }
+        .btn-primary {
+            background-color: #1e293b;
+            border-radius: 50px;
+            padding: 10px 30px;
+            font-size: 1.1rem;
+        }
+        .btn-primary:hover {
+            background-color: #ffc107;
+            color: #000;
+        }
+        .full-bg {
+            background: url('your-image-path.jpg') no-repeat center center/cover;
+            height: 100vh;
+            position: relative;
+        }
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .about-section {
+            background-color: #f1f1f1;
+            padding: 60px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .contact-section {
+            background-color: #e9ecef;
+            padding: 60px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-hard-hat me-2"></i>Plagiarism Checker</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" id="home">
+        <h1>Welcome to HackerRank Contest Plagiarism Checker</h1>
+        
+        <p>Ensure integrity in coding contests with our advanced detection tools.</p>
+        <a href="/signup" class="btn btn-warning btn-lg">Get Started</a>
+    </div>
+
+    <!-- Features Section -->
+    <div class="container my-5 features" id="features">
+        <h2 class="text-center mb-4">Features</h2>
+        <div class="row">
+            <div class="col-md-4 text-center feature">
+                <i class="fas fa-user-friends feature-icon"></i>
+                <h4>Easy to Use</h4>
+                <p>Intuitive interface designed for seamless contest submission analysis.</p>
+            </div>
+            <div class="col-md-4 text-center feature">
+                <i class="fas fa-ban feature-icon"></i>
+                <h4>No Ads</h4>
+                <p>Enjoy a clean, distraction-free experience with no advertisements.</p>
+            </div>
+            <div class="col-md-4 text-center feature">
+                <i class="fas fa-headset feature-icon"></i>
+                <h4>24/7 Support</h4>
+                <p>Our team is available round-the-clock to assist you with any issues.</p>
+            </div>
+            <div class="col-md-4 text-center feature">
+                <i class="fas fa-search feature-icon"></i>
+                <h4>Accurate Detection</h4>
+                <p>Advanced algorithms ensure precise plagiarism detection for fair contests.</p>
+            </div>
+            <div class="col-md-4 text-center feature">
+                <i class="fas fa-dollar-sign feature-icon"></i>
+                <h4>Free of Cost</h4>
+                <p>Access all features without any hidden charges—completely free.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="container my-5 contact-section" id="contact">
+        <h2 class="text-center mb-4">Contact Us</h2>
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="5" placeholder="Your message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </div>
+
+    <!-- About Section -->
+    <div class="container my-5 about-section" id="about">
+        <h2 class="text-center mb-4">About Us</h2>
+        <p>We are dedicated to providing the most accurate plagiarism detection tools for coding contests, ensuring fair play and integrity in every competition.</p>
+        <p>Our advanced algorithms analyze submitted code to detect similarities and potential cheating, helping organizers maintain a level playing field for all participants.</p>
+        <p>We strive to make our tool easy to use, cost-free, and accessible to everyone involved in coding competitions, ensuring a transparent and unbiased evaluation process.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 HackerRank Contest Plagiarism Checker. All rights reserved. <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        <div class="social-icons">
+            <i class="fab fa-facebook"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-linkedin"></i>
+            <i class="fab fa-github"></i>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
