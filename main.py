@@ -1,5 +1,5 @@
 import ast
-
+import os
 import json
 
 import sqlite3
@@ -391,7 +391,5 @@ def plagiarise_code():
     return render_template("result.html", request=res)
 
 
-
 if __name__ == "__main__":
-
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
